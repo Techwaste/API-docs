@@ -1,40 +1,52 @@
-# api documentation v0.0.1
 
-BEHOLD! Our API documentation!  
-hopefully this could be a great references for us  
-![me moment](https://media.tenor.com/__Bp2a09mF8AAAAM/cr1tikal-penguinz0.gif)
+# api documentation v0.0.2
 
+yahoo~! How are ya? I hope you guys doing well, and hopefully find love among this cruel world! Because as an old wise man once said: 
+
+"**one would most be thought to love a person if one wishes that he should exist, for his sake and not one's own, even if one doesn't confer goods on him, let alone existence**."   
+-Aristotle
+
+what about me you may ask!?
+my reaction to that question :  
+![me frfr](https://media.tenor.com/6sC2tvkCiU0AAAAC/micha%C5%82-micha%C5%82po-nesquicku.gif)
+
+anyways due to some technical issues (my brain and my low iq), I managed to fix the api and here's the updated version of the documentation:
 ### REGISTER
 
 - URL
     
-    /register
+    /user/signup
     
 - METHOD
     
     POST
     
 - REQUEST BODY
-    
-    name as STRING
-    
-    email as STRING
-    
-    password as STRING
-    
+```json
+{
+  "fullname": "string",
+  "email": "user@example.com",
+  "password": "string"
+}
+  ```  
 - RESPONSE
     
-      {
-       "error": false,
-        "message": "User Created"
-      }
+```json
+{
+  "error": "false",
+  "message": "User Created",
+  "signupToken": {
+    "access token": "aAiOiJfadsfdsafdsfKV1sadfQiLCfasdfdsaIUzIasdasdas32834hwytg90uerqhy908354nhg08erqh08q35nh0ierfh-ber-q9jh-945-0sdfjhme-tonjet9-tjn9-j-9j54h0-9nmeri0fhnbm-09rnobjknfds0ibn03n"
+  }
+}
+```
     
 
 ### LOGIN
 
 - URL
     
-    /login
+    /user/login
     
 - METHOD
     
@@ -42,29 +54,28 @@ hopefully this could be a great references for us
     
 - REQUEST BODY
     
-    email as STRING
-    
-    password as STRING
+```json
+{
+  "email": "user@example.com",
+  "password": "string"
+}
+```
     
 - RESPONSE
-    
-      {
-    
-      “error”: false,
-    
-      “message”: “login success”,
-    
-      “loginResult” : {
-    
-        “userId”: “user-135u29ht9084h32gt”
-    
-        “name”: “arip”,
-    
-        “token”: “sadg834hg03hw0ndsof0dhssadgf43gdsrgf34gdsa08gh240edasjkf9fdjg09dsfjg43294”
-    
-                      }
-    
-      }
+```json
+{
+  "error": "false",
+  "message": "login success",
+  "loginResult": {
+    "userId": {
+      "id": 3,
+      "Username": "gabrieltest3"
+    },
+    "token": {
+      "access token": "eyJ0eXAiOiJKV1QiLCJhbGdF0TCem7fhAK57fIPyM3K9VI2I"
+    }
+  }
+```
     
 
 ### PREDICT
@@ -89,26 +100,19 @@ hopefully this could be a great references for us
     
 - RESPONSE
     
-      {
-        "error": false,
-        "message": "success"
-    
-        “predictResult”:{ 
-    
-          result : “phone: 90.349859384”
-    
-          resultId: “1”
-    
-        }
-    
-      }
+```json
+{
+  "compID": 2,
+  "cable": 28.659623861312866
+}
+```
     
 
 ### COMPONENT
 
 - URL
     
-    /component
+    /component{id}
     
 - METHOD
     
@@ -118,40 +122,30 @@ hopefully this could be a great references for us
     
     Authorization: Bearer <Token>
     
-- REQUEST BODY
-    
-    component id as STRING (foreign key from result-id)
+- PARAMETERS
+name * = string
     
 - RESPONSE
     
-        {
-          "error": false,
-          "message": "success"
-    
-          “componentList”: [
-    
-        {
-    
-          “id”:”23”,
-    
-          “nama”:”keycaps”,
-    
-          “description”:”anunya keyboard”
-    
-          “imageExample”:”https://gsutil/sebuahember/contoh1.jpg”
-    
-        }
-    
-        ]
-    
-        }
+```json
+{
+  "error": "false",
+  "message": "success",
+  "componentList": {
+    "id": 1,
+    "name": "battery",
+    "desc": "A battery consists of one or more electrochemical cells that contains chemical energy and release it as electrical energy. Batteries are generally safe if being used properly. The most common danger associated with batteries if mishandled or damaged is explosion or fire.",
+    "example": "https://www.canford.co.uk/Images/ItemImages/large/59-104_01.jpg"
+  }
+}
+```
     
 
 ### ARTICLE
 
 - URL
     
-    /article
+    /article{id}
     
 - METHOD
     
@@ -167,24 +161,83 @@ hopefully this could be a great references for us
     
 - RESPONSE
     
-        {
-          "error": false,
-          "message": "success"
+```json
+{
+  "error": "false",
+  "message": "success",
+  "articleList": [
+    {
+      "id": 2,
+      "name": "test3",
+      "desc": "testing",
+      "articleImageURL": "testing.test",
+      "componentId": 3
+    }
+  ]
+}
+```
+### Get All Article
+- URL
     
-          “articleList”: [
+    /allArticle
     
-        {
+- METHOD
     
-          “idArticle”:”1”,
+    GET
     
-          “nama”:”tahukah kamu? menelan keyboard bisa jadi…”
+- HEADERS
     
-          “description”:”keyboard ternyata bisa jadi.. 🤯”
+    Authorization: Bearer <Token>
     
-         “articlePhotoUrl”:”https://gsutil/sebuahember/contoh1.jpg”
-    
-       }
-    
-                    ]
-    
-      }
+   
+- RESPONSE
+```json
+{
+  "error": "false",
+  "message": "success",
+  "componentList": [
+    {
+      "id": 6,
+      "name": "nomer satu",
+      "desc": "nomerSatu",
+      "articleImageURL": "testing.test",
+      "componentId": 1
+    },
+    {
+      "id": 5,
+      "name": "nomer satu",
+      "desc": "nomerSatu",
+      "articleImageURL": "testing.test",
+      "componentId": 2
+    },
+    {
+      "id": 4,
+      "name": "nomer satu",
+      "desc": "nomerSatu",
+      "articleImageURL": "testing.test",
+      "componentId": 2
+    },
+    {
+      "id": 3,
+      "name": "nomer satu",
+      "desc": "nomerSatu",
+      "articleImageURL": "testing.test",
+      "componentId": 1
+    },
+    {
+      "id": 2,
+      "name": "test3",
+      "desc": "testing",
+      "articleImageURL": "testing.test",
+      "componentId": 3
+    },
+    {
+      "id": 1,
+      "name": "test",
+      "desc": "testing",
+      "articleImageURL": "testing.test",
+      "componentId": 1
+    }
+  ]
+}
+```
